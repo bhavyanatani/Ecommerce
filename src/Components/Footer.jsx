@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Phone, Mail, Instagram, Facebook, Twitter } from "lucide-react";
-import modecontext from '../context/ModeContext';
+import modecontext from '../context/modecontext';
 const Footer = () => {
   const { mode, themeColors } = useContext(modecontext);
   // Function to handle search click

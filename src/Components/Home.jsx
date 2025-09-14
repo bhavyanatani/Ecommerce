@@ -4,7 +4,7 @@ import Tshirt from './Tshirt';
 import TextInfo from './TextInfo';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import modecontext from '../context/ModeContext';
+import modecontext from '../context/modecontext';
 export default function Home() {
   const { mode, themeColors } = useContext(modecontext);
   const handleFooterSearchClick = () => {

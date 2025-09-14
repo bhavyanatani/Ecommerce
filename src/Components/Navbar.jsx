@@ -3,7 +3,7 @@ import searchIcon from "../Pictures/search.png";
 import cart from "../Pictures/cart.png";
 import account from "../Pictures/account.png";
 import wishlist from "../Pictures/wishlist.png";
-import modecontext from "../context/ModeContext";
+import modecontext from "../context/modecontext";
 
 
 const Navbar = () => {
