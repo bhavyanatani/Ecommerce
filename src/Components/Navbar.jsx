@@ -61,7 +61,7 @@ const Navbar = () => {
           className="px-4 py-2 rounded bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium transition-colors"
           onClick={toggleMode}
         >
-          {mode === "Basic" ? "Premium" : "Basic"}
+          {mode === "Basic" ? "Luke" : "Basic"}
         </button>
       </div>
 
@@ -93,7 +93,7 @@ const Navbar = () => {
             className="px-3 py-1 rounded bg-gray-800 hover:bg-gray-700 text-white text-xs font-medium transition-colors"
             onClick={toggleMode}
           >
-            {mode === "Basic" ? "Premium" : "Basic"}
+            {mode === "Basic" ? "Luke" : "Basic"}
           </button>
         </div>
       </div>

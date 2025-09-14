@@ -1,29 +1,22 @@
-import { useState, useRef, useContext, Suspense, useEffect } from 'react'
+import { useState, useRef, useContext } from 'react'
 import { Canvas, useLoader, useFrame } from '@react-three/fiber'
 import { OrbitControls, Environment, ContactShadows, useGLTF } from '@react-three/drei'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import * as THREE from 'three'
 import { useMediaQuery } from 'react-responsive'
+import { motion } from 'framer-motion'
 import modecontext from '../context/modecontext'
-import Spinner from './Spinner'
 
 
 
 
-function TshirtModel({ color, onLoad }) {
+function TshirtModel({ color }) {
   // Load OBJ model
   const obj = useLoader(OBJLoader, '/Models/Tshirt.obj')
   const meshRef = useRef()
   const groupRef = useRef()
   const [hovered, setHovered] = useState(false)
   const [rotationPaused, setRotationPaused] = useState(false)
-  
-  // Call onLoad when the component mounts and the model is loaded
-  useEffect(() => {
-    if (obj && onLoad) {
-      onLoad();
-    }
-  }, [obj, onLoad])
 
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
@@ -112,78 +105,59 @@ function TshirtModel({ color, onLoad }) {
 
 const Tshirt = () => {
   const { mode } = useContext(modecontext);
+  const [isHovered, setIsHovered] = useState(false);
   // Fixed white color only
   const tshirtColor = "#ffffff";
-  const [isLoading, setIsLoading] = useState(true);
-  
-  const handleModelLoaded = () => {
-    setIsLoading(false);
-  };
-  
-  // Fallback to ensure spinner doesn't show indefinitely
-  useEffect(() => {
-    // Set a timeout to hide the spinner after a maximum wait time
-    const timeoutId = setTimeout(() => {
-      console.log('Forcing spinner to hide after timeout');
-      setIsLoading(false);
-    }, 3000); // 3 seconds max wait time
-    
-    return () => clearTimeout(timeoutId);
-  }, []);
-  
-  // Log when loading state changes
-  useEffect(() => {
-    console.log('Loading state:', isLoading);
-  }, [isLoading]);
   
   return (
     <div>
-      <div style={styles.container}>
+      <motion.div 
+        style={styles.container}
+        whileHover={{ scale: 1.01 }}
+        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div style={styles.canvas}>
-          {isLoading && <Spinner />}
-          <div style={{ display: isLoading ? 'none' : 'block', width: '100%', height: '100%' }}>
-            <Canvas shadows camera={{ position: [0, 0, 4], fov: 45 }}>
-              <color attach="background" args={['transparent']} />
-              <ambientLight intensity={0.5} />
-              <directionalLight 
-                position={[5, 5, 5]} 
-                intensity={1} 
-                castShadow 
-                shadow-mapSize-width={2048} 
-                shadow-mapSize-height={2048} 
-              />
-              <spotLight 
-                position={[-5, 5, 5]} 
-                angle={0.15} 
-                penumbra={1} 
-                intensity={0.7} 
-                castShadow
-              />
-              <Suspense fallback={null}>
-                <TshirtModel color={tshirtColor} onLoad={handleModelLoaded} />
-              </Suspense>
-              <OrbitControls 
-                enableZoom={false} 
-                enablePan={false}
-                minPolarAngle={Math.PI / 3}
-                maxPolarAngle={Math.PI / 1.5}
-                autoRotate={false}
-                autoRotateSpeed={0.5}
-              />
-              <ContactShadows 
-                position={[0, -1.5, 0]}
-                opacity={0.4}
-                scale={10}
-                blur={2.5}
-                far={4}
-              />
-              <Environment preset="city" />
-            </Canvas>
-          </div>
+          <Canvas shadows camera={{ position: [0, 0, 4], fov: 45 }}>
+            <color attach="background" args={['transparent']} />
+            <ambientLight intensity={0.5} />
+            <directionalLight 
+              position={[5, 5, 5]} 
+              intensity={1} 
+              castShadow 
+              shadow-mapSize-width={2048} 
+              shadow-mapSize-height={2048} 
+            />
+            <spotLight 
+              position={[-5, 5, 5]} 
+              angle={0.15} 
+              penumbra={1} 
+              intensity={0.7} 
+              castShadow
+            />
+            <TshirtModel color={tshirtColor} />
+            <OrbitControls 
+              enableZoom={false} 
+              enablePan={false}
+              minPolarAngle={Math.PI / 3}
+              maxPolarAngle={Math.PI / 1.5}
+              autoRotate={false}
+              autoRotateSpeed={0.5}
+            />
+            <ContactShadows 
+              position={[0, -1.5, 0]}
+              opacity={0.4}
+              scale={10}
+              blur={2.5}
+              far={4}
+            />
+            <Environment preset="city" />
+          </Canvas>
         </div>
         
         {/* Color selection removed - T-shirt is white only */}
-      </div>
+      </motion.div>
     </div>
   )
 }

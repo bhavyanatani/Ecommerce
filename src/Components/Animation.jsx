@@ -154,7 +154,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     height: "100vh",
-    gap: "8px",
+    gap: "10px",
     color: "#fff",
     fontFamily: "sans-serif",
     textAlign: "center",
