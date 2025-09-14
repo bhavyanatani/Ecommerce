@@ -1,6 +1,6 @@
 // TextInfo.jsx
 import React, { useContext, useState } from 'react';
-import modecontext from '../context/ModeContext';
+import modecontext from '../context/modecontext';
 import { motion } from 'framer-motion';
 
 export default function TextInfo() {

@@ -4,7 +4,7 @@ import { OrbitControls, Environment, ContactShadows, useGLTF } from '@react-thre
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 import * as THREE from 'three'
 import { useMediaQuery } from 'react-responsive'
-import modecontext from '../context/ModeContext'
+import modecontext from '../context/modecontext'
 
 
 
