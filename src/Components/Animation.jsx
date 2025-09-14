@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"; 
 import { useNavigate } from "react-router-dom";
-import FuzzyText from "./FuzzyText";
 import Plasma from "./Plasma";
 
 export default function Animation() {
@@ -67,19 +66,22 @@ export default function Animation() {
           zIndex: 2,
         }}
       >
-        <FuzzyText
-          style={styles.sharedText}
-          baseIntensity={0.1}
-          enableHover={false}
+        <h1
+          className="cult-text"
+          style={{
+            ...styles.sharedText,
+            fontFamily: "system-ui, sans-serif",
+          }}
         >
           Cult
-        </FuzzyText>
+        </h1>
 
         {showByOrigin && (
           <h1
+            className="byorigin-text"
             style={{
               ...styles.sharedText,
-              fontFamily: "Lacquer, system-ui",
+              fontFamily: "system-ui, sans-serif",
               animation: "letterReveal 700ms ease forwards",
             }}
           >
@@ -89,14 +91,25 @@ export default function Animation() {
 
         <style>
           {`
+          .cult-text {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+          }
+          
+          .byorigin-text {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+          }
+          
           @keyframes letterReveal {
             from {
               opacity: 0;
               letter-spacing: 0.15em;
+              transform: translateY(10px);
             }
             to {
               opacity: 1;
               letter-spacing: normal;
+              transform: translateY(0);
             }
           }
 
@@ -111,11 +124,20 @@ export default function Animation() {
             }
           }
 
-          /* Stack text vertically on small screens */
-          @media (max-width: 600px) {
-            .text-container {
+          /* Improved responsiveness for smaller devices */
+          @media (max-width: 768px) {
+            .cult-text, .byorigin-text {
+              font-size: clamp(1.5rem, 8vw, 3.5rem);
+            }
+          }
+          
+          @media (max-width: 480px) {
+            #root > div > div {
               flex-direction: column;
-              gap: 4px;
+              gap: 0;
+            }
+            .cult-text, .byorigin-text {
+              font-size: clamp(1.2rem, 6vw, 2.5rem);
             }
           }
         `}
@@ -139,9 +161,10 @@ const styles = {
     padding: "0 10px",
   },
   sharedText: {
-    fontSize: "clamp(2rem, 12vw, 5rem)", // identical size across both texts
+    fontSize: "clamp(2rem, 10vw, 4.5rem)", // reduced size for better performance
     margin: 0,
     lineHeight: 1.1,
     willChange: "transform, opacity",
+    fontWeight: "bold",
   },
 };
