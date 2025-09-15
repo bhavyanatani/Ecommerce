@@ -123,7 +123,7 @@ const Tshirt = () => {
             shadows 
             camera={{ position: [0, 0, 4], fov: 45 }}
             onCreated={({ gl }) => {
-              gl.setClearColor('transparent', 0);
+              gl.setClearColor(0x000000, 0);
             }}
             gl={{ 
               antialias: true,
@@ -131,7 +131,6 @@ const Tshirt = () => {
               powerPreference: "high-performance"
             }}
           >
-            <color attach="background" args={['transparent']} />
             <ambientLight intensity={0.5} />
             <directionalLight 
               position={[5, 5, 5]} 
