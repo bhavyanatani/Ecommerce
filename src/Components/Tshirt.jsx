@@ -119,7 +119,18 @@ const Tshirt = () => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div style={styles.canvas}>
-          <Canvas shadows camera={{ position: [0, 0, 4], fov: 45 }}>
+          <Canvas 
+            shadows 
+            camera={{ position: [0, 0, 4], fov: 45 }}
+            onCreated={({ gl }) => {
+              gl.setClearColor('transparent', 0);
+            }}
+            gl={{ 
+              antialias: true,
+              alpha: true,
+              powerPreference: "high-performance"
+            }}
+          >
             <color attach="background" args={['transparent']} />
             <ambientLight intensity={0.5} />
             <directionalLight 
@@ -152,7 +163,7 @@ const Tshirt = () => {
               blur={2.5}
               far={4}
             />
-            <Environment preset="city" />
+            <Environment preset="sunset" />
           </Canvas>
         </div>
         
